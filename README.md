@@ -14,7 +14,7 @@ autism_flask_app/
 ├─ app.py
 ├─ requirements.txt
 ├─ models/
-│  └─ autism_model.h5        # <-- place your trained model here
+│  └─ convnext_tiny_faag_binary.keras        # <-- place your trained model here. Download Model: https://huggingface.co/spaces/darkzane007/autimsclass
 ├─ uploads/                  # runtime-uploaded files
 ├─ static/
 │  ├─ styles.css
