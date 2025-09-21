@@ -1,0 +1,17 @@
+# ========================
+# Large File Storage (LFS)
+# ========================
+
+# Track beberapa format model BESAR via LFS (SELURUH repo)
+*.h5     filter=lfs diff=lfs merge=lfs -text
+*.hdf5   filter=lfs diff=lfs merge=lfs -text
+*.ckpt   filter=lfs diff=lfs merge=lfs -text
+*.tflite filter=lfs diff=lfs merge=lfs -text
+*.onnx   filter=lfs diff=lfs merge=lfs -text
+
+# Secara default, file .keras TIDAK dipaksa ke LFS
+# (jangan tulis: *.keras filter=lfs ...)
+
+# Override spesifik: pastikan file .keras di folder model/ TIDAK memakai LFS
+# (pola yang lebih spesifik akan menang)
+model/*.keras -filter -diff -merge text

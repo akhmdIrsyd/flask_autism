@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.env
+.venv
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# TensorFlow / Keras
+checkpoint
+checkpoints/
+*.ckpt
+*.ckpt.*
+*.h5
+*.hdf5
+*.pb
+*.keras
+*.tflite
+*.onnx
+saved_model/
+logs/
+events.out.tfevents*
+
+# Model hasil training – DIABAIKAN
+models/
+models/*.keras
+models/*.h5
+models/*.ckpt
+models/*.tflite
+models/*.onnx
+
+# Dataset & Outputs
+data/
+datasets/
+*.csv
+*.tsv
+*.npz
+*.npy
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.gif
+*.tif
+*.tiff
+
+# Colab/IDE
+*.swp
+*.swo
+.DS_Store
+.vscode/
+.idea/

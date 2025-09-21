@@ -1,0 +1,6 @@
+Flask==3.0.3
+Werkzeug==3.0.3
+tensorflow
+pillow==10.4.0
+numpy
+opencv-python

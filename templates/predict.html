@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h2>Prediction Result</h2>
+    {% if result %}
+      <div class="card result-card">
+        <div class="result-grid">
+          <div>
+            <img src="{{ result.path }}" alt="Uploaded image" class="preview">
+          </div>
+          <div>
+            <div class="result-label">{{ result.label }}</div>
+
+{# --- Ambil skor mentah --- #}
+{% set a = result.scores['Autistic']|float %}
+{% set n = result.scores['Non_Autistic']|float %}
+
+{# --- Tentukan mapping tampilan sesuai label --- #}
+{% if result.label == 'Autistic' %}
+  {# TERTINGGI ditampilkan sebagai Autistic, TERENDAH sebagai Non_Autistic #}
+  {% if a >= n %}
+    {% set autistic_score = a %}
+    {% set non_score = n %}
+  {% else %}
+    {% set autistic_score = n %}
+    {% set non_score = a %}
+  {% endif %}
+{% elif result.label == 'Non_Autistic' %}
+  {# TERTINGGI ditampilkan sebagai Non_Autistic, TERENDAH sebagai Autistic #}
+  {% if n >= a %}
+    {% set non_score = n %}
+    {% set autistic_score = a %}
+  {% else %}
+    {% set non_score = a %}
+    {% set autistic_score = n %}
+  {% endif %}
+{% endif %}
+
+{# --- Render bar sesuai mapping di atas --- #}
+<div class="score-bars">
+  {% if result.label == 'Autistic' %}
+  {# ---<div class="result-conf">Confidence: {{ autistic_score|round(2) }}%</div> --- #}
+    <div class="bar">
+      <span>Autistic</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ autistic_score }}%"></div></div>
+      <span class="pct">{{ autistic_score|round(2) }}%</span>
+    </div>
+    <div class="bar">
+      <span>Non_Autistic</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ non_score }}%"></div></div>
+      <span class="pct">{{ non_score|round(2) }}%</span>
+    </div>
+  {% elif result.label == 'Non_Autistic' %}
+  {# ---<div class="result-conf">Confidence: {{ non_score|round(2) }}%</div> --- #}
+    <div class="bar">
+      <span>Non_Autistic</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ non_score }}%"></div></div>
+      <span class="pct">{{ non_score|round(2) }}%</span>
+    </div>
+    <div class="bar">
+      <span>Autistic</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ autistic_score }}%"></div></div>
+      <span class="pct">{{ autistic_score|round(2) }}%</span>
+    </div>
+  {% endif %}
+</div>
+
+
+
+
+            
+            <a class="btn-secondary" href="{{ url_for('index') }}">Try another image</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p>No result found.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

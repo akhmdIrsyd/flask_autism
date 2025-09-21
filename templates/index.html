@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <h1>Early Autism Screening</h1>
+      <p class="lead">
+        A demonstrate AI-assisted screening.
+        Upload a face image to obtain a preliminary classification.
+      </p>
+      {% if model_error %}
+        <div class="alert alert-danger">Model not loaded: {{ model_error }}</div>
+      {% endif %}
+      <form action="{{ url_for('predict_route') }}" method="post" enctype="multipart/form-data" class="upload-form">
+        <label class="file-input">
+          <input type="file" name="image" accept=".png,.jpg,.jpeg,.bmp" required>
+        </label>
+        <button type="submit" class="btn-primary">Predict</button>
+      </form>
+      <p class="disclaimer">This tool is not a diagnostic instrument. Always consult qualified professionals.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="container grid-2">
+    <div>
+      <h2>About</h2>
+      <p>
+        This demonstration leverages a convolutional neural network trained on labeled images
+        to perform binary classification: <strong>Non_Autistic</strong> vs <strong>Autistic</strong>.
+        The model operates on resized RGB images (default 224×224) and outputs class probabilities.
+      </p>
+    </div>
+    <div>
+      <h2 id="method">Method</h2>
+      <p>
+        The backend is built with Flask and TensorFlow/Keras. Uploaded images are preprocessed
+        (standardized size and scaling) before inference. The application supports either a single
+        sigmoid output or a two-unit softmax output.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
